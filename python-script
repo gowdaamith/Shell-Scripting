@@ -1,0 +1,17 @@
+import subprocess
+def run(cmd):
+    result = subprocess.run(cmd,shell=True)
+    if result.returncode != 0 :
+	    print(f"Failed to execute the command {cmd}")
+	    exit(1)
+print ("PUlling the latest code")
+run("git pull")
+
+print("Building the docker image")
+run ("docker build -t myapp . ")
+
+print("Running the container")
+run("docker run -d -p 80:80 myapp")
+
+print("Deployment completed")
+
